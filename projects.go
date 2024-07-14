@@ -24,7 +24,6 @@ type Environment struct {
 	Description string `json:"description"`
 }
 
-// GetFaces returns trained faces and their images
 func (c *Client) GetProjects() ([]Project, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/projects", c.baseURL), nil)
 	if err != nil {
