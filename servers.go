@@ -80,8 +80,8 @@ type Resource struct {
 	Status    string    `json:"status"`
 }
 
-func (c *Client) GetServerResources(resourceID string) ([]Resource, error) {
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/servers/resources/%s", c.baseURL, resourceID), nil)
+func (c *Client) GetServerResources(serverID string) ([]Resource, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/servers/%s/resources", c.baseURL, serverID), nil)
 	if err != nil {
 		return nil, err
 	}
