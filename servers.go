@@ -69,3 +69,30 @@ func (c *Client) GetServers() ([]Server, error) {
 
 	return res, nil
 }
+
+type Resource struct {
+	ID        int       `json:"id"`
+	UUID      string    `json:"uuid"`
+	Name      string    `json:"name"`
+	Type      string    `json:"type"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	Status    string    `json:"status"`
+}
+
+func (c *Client) GetServerResources(resourceID string) ([]Resource, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/servers/resources/%s", c.baseURL, resourceID), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	var res []Resource
+	if err := c.sendRequest(req, &res); err != nil {
+		return nil, err
+	}
+	slog.Info("servers", "res", res)
+
+	return res, nil
+}
